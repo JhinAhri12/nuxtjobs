@@ -1,3 +1,7 @@
 <template>
-    coucou
+    
+    <div>
+        coucou
+        <slot />
+    </div>
 </template>
