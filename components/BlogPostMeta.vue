@@ -1,9 +1,9 @@
 
 
 <template>
-  <div class="tags has-addons level-item are-medium">
-    <span class="tag is-rounded" :class="`is-${color}`">{{ author }}</span>
-    <span class="tag is-rounded">{{ formattedDate }}</span>
+  <div class="">
+    <span class="text-teal-400" >{{ author }}</span>&nbsp;
+    <span class="text-teal-400">{{ formattedDate }}</span>
   </div>
 </template>
 

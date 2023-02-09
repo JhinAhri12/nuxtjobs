@@ -12,8 +12,8 @@
           <NuxtLink :to="blogPost._path">
             <section class="blog-post-card card article">
               <div class="media">
-                <div class="media-content has-text-centered">
-                  <h3 class="title article-title has-text-weight-bold">
+                <div class="media-content">
+                  <h3 class="title article-title">
                     {{ blogPost.title }}
                   </h3>
                   <BlogPostMeta
@@ -23,7 +23,7 @@
                 </div>
               </div>
               <div class="card-content">
-                <div class="content article-body is-size-5">
+                <div class="content article-body">
                   {{ blogPost.description }}
                 </div>
               </div>
@@ -41,7 +41,7 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
 })
 </script>
 
-<style>
+<style scoped>
 .blog-post-card {
   padding-top: 2.5rem;
   padding-bottom: 3rem;
@@ -51,5 +51,8 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
 }
 .blog-post-card .title {
   margin-bottom: 1rem;
+}
+h3{
+  color: #22c55d;
 }
 </style>

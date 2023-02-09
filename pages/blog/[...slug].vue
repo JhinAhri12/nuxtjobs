@@ -6,24 +6,23 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 </script>
 
 <template>
-  <main>
+  <div class="bg-white p-5">
     <TheHero>
-      <template v-slot:default>{{ blogPost.title }}</template>
+      <template v-slot:default><span class="titleArticle">{{ blogPost.title }}</span></template>&nbsp;&nbsp;
 
       <template v-slot:subtitle>
         <BlogPostMeta
           :author="blogPost.author"
           :date="blogPost.dates.published"
-          color="dark"
         />
       </template>
     </TheHero>
-    <div class="container ">
+    <div class=" ">
       <section class="articles">
-        <div class="column is-8 is-offset-2">
-          <section class="blog-post-card card article">
-            <div class="card-content">
-              <div class="content article-body is-size-5">
+        <div class="">
+          <section class="blog-post-card card article text-zinc-500">
+            <div class="">
+              <div class="contentArticle">
                 <ContentDoc />
               </div>
             </div>
@@ -31,10 +30,10 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
         </div>
       </section>
     </div>
-  </main>
+  </div>
 </template>
 
-<style>
+<style scoped>
 .blog-post-card {
   padding-top: 2.5rem;
   padding-bottom: 3rem;
@@ -44,5 +43,8 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 }
 .blog-post-card .title {
   margin-bottom: 1rem;
+}
+.titleArticle{
+  color: #0f5e59;
 }
 </style>
