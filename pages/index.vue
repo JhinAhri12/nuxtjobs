@@ -2,8 +2,15 @@
 
     <h1><b>Le site de référence pour trouver ton job sur Nuxt</b></h1>
     <button class="rounded">Je me lance </button>
-
-    <JobList />
+    <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-2">
+            <JobList />
+        </div>
+        <div>
+           <Filter />
+        </div>
+    </div>
+    
 
 </template>
 <style scoped>
