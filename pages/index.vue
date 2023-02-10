@@ -7,7 +7,7 @@
             <JobList />
         </div>
         <div>
-            pouet
+           <Filter />
         </div>
     </div>
     
