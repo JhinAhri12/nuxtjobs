@@ -5,6 +5,8 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
     assertMethod(event, ['GET']);
     const strQuery = await getQuery(event)
+
+
     if (strQuery.query === 'orderBy')
     {
         try {
@@ -22,6 +24,7 @@ export default defineEventHandler(async (event) => {
     {
         try {
             const jobs = await prisma.job.findMany({
+                orderBy: { id: 'desc'},
                 take: 6,
             });
             return jobs;

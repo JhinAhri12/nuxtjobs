@@ -1,6 +1,6 @@
 <template>
     <span>Nombre de jobs : {{ count._count._all }}</span> &nbsp;&nbsp;
-    <button class="rounded" @click="sortJobs">Trier </button>
+    <button class="rounded" @click="sortJobs">Trier </button>&nbsp;&nbsp;<button class="rounded" @click="createJob">Créer un job </button>
     <div class="m-3 max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" v-for="job in jobs">
         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.society }}</h2>
         <h3>Job Nuxt</h3>
@@ -10,15 +10,25 @@
 </template>
 
 <script setup>
+let society = 'test'
+let description = 'lorema zkjrfoj,giokj'
 
 const sort = ref({ query: 'nothing'});
 const { data : count  } =  await  useFetch(`/api/job/countJobs/`)    
 const { data : jobs, pending, refresh, error } = await useFetch(() => `/api/job/job?query=${sort.value.query}`)
 
+//sort job by society asc
 function sortJobs () {
-
     sort.value.query = 'orderBy';
     refresh();
+}
+
+async function createJob () {
+    await $fetch ( `/api/job/createJob`,
+        {
+            method: 'POST',
+            body: { event: 'ADD_JOB', 'society': society, 'description': description },
+        })
 }
 
 </script>
