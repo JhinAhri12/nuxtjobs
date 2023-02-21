@@ -18,9 +18,9 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
       </template>
     </TheHero>
     <div class=" ">
-      <section class="articles">
+      <section class="grid grid-rows-4 grid-flow-col gap-4">
         <div class="">
-          <section class="blog-post-card card article text-zinc-500">
+          <section class="">
             <div class="">
               <div class="contentArticle">
                 <ContentDoc />
@@ -34,16 +34,6 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 </template>
 
 <style scoped>
-.blog-post-card {
-  padding-top: 2.5rem;
-  padding-bottom: 3rem;
-}
-.blog-post-card .card-content {
-  padding: 1rem;
-}
-.blog-post-card .title {
-  margin-bottom: 1rem;
-}
 .titleArticle{
   color: #0f5e59;
 }
