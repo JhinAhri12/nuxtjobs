@@ -1,6 +1,6 @@
 <template>
     <span>Nombre de jobs : {{ count._count._all }}</span> &nbsp;&nbsp;
-    <button class="rounded" @click="sortJobs">Trier </button>&nbsp;&nbsp;<button class="rounded" @click="createJob">Créer un job </button>
+    <button class="rounded" @click="sortJobs">Trier </button>
     <div class="m-3 max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" v-for="job in jobs">
         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.society }}</h2>
         <h3>Job Nuxt</h3>
@@ -22,15 +22,6 @@ function sortJobs () {
     sort.value.query = 'orderBy';
     refresh();
 }
-
-async function createJob () {
-    await $fetch ( `/api/job/createJob`,
-        {
-            method: 'POST',
-            body: { event: 'ADD_JOB', 'society': society, 'description': description },
-        })
-}
-
 </script>
 <style scoped>
 button {

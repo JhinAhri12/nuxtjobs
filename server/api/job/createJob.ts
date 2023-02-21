@@ -21,5 +21,5 @@ const body = await readBody(event)
         
       }
       return job;
-      console.log( event.body);
+      
 })
