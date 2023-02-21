@@ -1,4 +1,4 @@
-<template class="">
+<template>
     <div class="bg-white w-max p-6 m-3 border border-gray-200 rounded-lg shadow ">
         <h1>Filtres :</h1>
         <input class="border-gray-300 sm:text-sm" type="text" placeholder="Ville"> <button class="rounded">Rechercher</button>
