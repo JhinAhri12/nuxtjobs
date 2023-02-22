@@ -16,6 +16,7 @@
 const form = defineProps(['title','action'])
 let society = ''
 let description = ''
+const { id } = useRoute().params ? useRoute().params : ''
 
 async function onSubmit(){
     if (society === '' && description === '') 
@@ -24,16 +25,28 @@ async function onSubmit(){
         return
     } 
     else {
+        // on veut ajouter un job
         if (form.action === 'POST'){
 
-        society = society;
-        description = description;
-        await $fetch ( `/api/job/createJob`,
-        {
-            method: 'POST',
-            body: { event: 'ADD_JOB', 'society': society, 'description': description },
-        })
-    }
+            society = society;
+            description = description;
+            await $fetch ( `/api/job/manageJob`,
+            {
+                method: 'POST',
+                body: { event: 'ADD_JOB', 'society': society, 'description': description },
+            })
+        }
+        // on veut modifier un job
+        if (form.action === 'PATCH'){
+
+            society = society;
+            description = description;
+            await $fetch ( `/api/job/manageJob`,
+            {
+                method: 'PATCH',
+                body: { event: 'UPDATE_JOB', 'id': id, 'society': society, 'description': description },
+            })
+        }
     }
 }
 
