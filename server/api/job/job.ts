@@ -19,7 +19,19 @@ export default defineEventHandler(async (event) => {
         catch (error) {
             console.log(error)
         }
-    }  
+    } 
+    if (strQuery.query === 'getById')
+    {
+        try {
+            const job = await prisma.job.findFirst({
+                where: {id: parseInt(strQuery.params) }
+            });
+            return job;
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }   
     else
     {
         try {
