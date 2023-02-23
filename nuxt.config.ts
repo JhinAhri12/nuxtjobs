@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: [    '@nuxtjs/tailwindcss', '@nuxt/content'  ],
+    modules: [   "@nuxtjs/supabase", '@nuxtjs/tailwindcss', '@nuxt/content'  ],
 
 })

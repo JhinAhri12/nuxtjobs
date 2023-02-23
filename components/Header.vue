@@ -21,14 +21,50 @@
                         <li>
                         <NuxtLink to="/blog" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Blog</NuxtLink>
                         </li>
-                        <li>
-                        <NuxtLink to="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</NuxtLink>
-                        </li>
+                        <div v-if="!name">
+                            <li>
+                                <NuxtLink to="/user/signup" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</NuxtLink>
+                            </li>
+                        </div>
+                        <div v-else>
+                            
+                            <button @click="logout">Déconnexion</button>
+
+                        </div>
+                        
                     </ul>
                 </div>
         </div>
     </nav>
 </template>
+<script setup>
+const user = useSupabaseUser();
+const { auth } = useSupabaseClient();
+
+const name = computed(
+    () => user.value?.email
+  );
+const logout = async () => {
+    const { error } = await auth.signOut();
+    if (error) {
+      console.error(error);
+      return;
+    }
+    // The Nuxt Supabase auth *should* be doing this
+    // for us, but it isn't for some reason.
+    try {
+      await $fetch('/api/_supabase/session', {
+        method: 'POST',
+        body: { event: 'SIGNED_OUT', session: null },
+      });
+      user.value = null;
+    } catch (e) {
+      console.error(error);
+    }
+    await navigateTo('/');
+  };
+
+</script>
 <style scoped>
 .title{
     color: #22c55d;

@@ -13,6 +13,12 @@
     
 
 </template>
+<script setup>
+    definePageMeta({
+    middleware: "auth",
+    });
+    const user = useSupabaseUser();
+</script>
 <style scoped>
 h1{
     color : #22c55d;

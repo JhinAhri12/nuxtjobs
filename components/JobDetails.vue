@@ -12,10 +12,21 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nuxt</span>
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nuxtjob</span>
         </div>
+        <div v-show="user" class="px-6 py-4 pb-2">
+            <button class="job px-3 py-1">Postuler</button>
+        </div>
     </div>
-
+    
 </template>
 <script setup>
+    const user = useSupabaseUser();
     const { job } = defineProps(['job'])
-    console.log(job)
+
 </script>
+<style scoped>
+.job {
+    background-color: #0f5e59;
+color:white;
+padding: 10px
+}
+</style>
