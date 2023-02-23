@@ -13,7 +13,7 @@
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nuxtjob</span>
         </div>
         <div v-show="user" class="px-6 py-4 pb-2">
-            <button class="job px-3 py-1">Postuler</button>
+            <button class="job px-3 py-1" @click="applyJob">Postuler</button>
         </div>
     </div>
     
@@ -22,6 +22,12 @@
     const user = useSupabaseUser();
     const { job } = defineProps(['job'])
 
+    async function applyJob(){
+        await $fetch(`/api/job/manageApplication`,{
+            method: 'POST',
+            body: { event: 'APPLICATION_JOB',}
+        })
+    }
 </script>
 <style scoped>
 .job {
