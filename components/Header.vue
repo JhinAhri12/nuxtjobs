@@ -3,7 +3,6 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
             <a href="/" class="flex items-center">
-                <img src="" class="h-6 mr-3 sm:h-9" alt=" Logo" />
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white title">Nuxt Jobs</span>
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -16,19 +15,54 @@
                         <NuxtLink to="/" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Accueil</NuxtLink>
                         </li>
                         <li>
-                        <NuxtLink to="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Jobs</NuxtLink>
-                        </li>
-                        <li>
                         <NuxtLink to="/blog" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Blog</NuxtLink>
                         </li>
-                        <li>
-                        <NuxtLink to="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</NuxtLink>
-                        </li>
+                        <div v-if="!name">
+                            <li>
+                                <NuxtLink to="/user/signup" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</NuxtLink>
+                            </li>
+                        </div>
+                        <div v-else>
+                          <li>
+                                <NuxtLink to="/user/profil" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Profil</NuxtLink>
+                            </li>
+                            <button @click="logout">Déconnexion</button>
+
+                        </div>
+                        
                     </ul>
                 </div>
         </div>
     </nav>
 </template>
+<script setup>
+const user = useSupabaseUser();
+const { auth } = useSupabaseClient();
+
+const name = computed(
+    () => user.value?.email
+  );
+const logout = async () => {
+    const { error } = await auth.signOut();
+    if (error) {
+      console.error(error);
+      return;
+    }
+    // The Nuxt Supabase auth *should* be doing this
+    // for us, but it isn't for some reason.
+    try {
+      await $fetch('/api/_supabase/session', {
+        method: 'POST',
+        body: { event: 'SIGNED_OUT', session: null },
+      });
+      user.value = null;
+    } catch (e) {
+      console.error(error);
+    }
+    await navigateTo('/');
+  };
+
+</script>
 <style scoped>
 .title{
     color: #22c55d;

@@ -1,10 +1,16 @@
 <template>
     <NuxtLink to="/" class="job"> Retour à la liste des jobs</NuxtLink>
     <JobDetails :job="job" />
-    <FormJob :title="title" :action="action" />
-    <button class="job" @click="deleteJob">Supprimer le Job</button>
+
+    <div v-show="user">
+        <FormJob :title="title" :action="action" />
+
+        <button class="job" @click="deleteJob">Supprimer le Job</button>
+    </div>
 </template>
 <script setup>
+    const user = useSupabaseUser();
+
     const title = 'Update'
     const action = 'PATCH'
     const { id } = useRoute().params
