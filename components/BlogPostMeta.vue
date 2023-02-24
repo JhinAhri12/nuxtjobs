@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="">
     <span class="text-teal-400" >{{ author }}</span>&nbsp;

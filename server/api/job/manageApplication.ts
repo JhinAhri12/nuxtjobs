@@ -8,39 +8,42 @@ export default defineEventHandler(async (event) => {
 
     // add one job application
     if (body.event === 'APPLICATION_JOB'){
-        const user = await prisma.user.create({
-            data: {
-              email: 'vlad@prisma.io',
-              name: ''
-          }
-        })
 
-        if(!user){
-            throw createError({
-              statusCode :404, 
-              statusMessage : 'User not created'});
-            
-          }
+        // on cherche l'utilisateur
+        let user = await prisma.user.findFirst({
+            where: {
+              email: body.email,
+            },
+          });
+        // si l'utilisateur n'existe pas on le créer
+        if(!user)
+        {
+            user = await prisma.user.create({
+                data: {
+                    email: body.email
+                }
+            })
+        }
+        // on créer la relation "postuler"
         const application = await prisma.application.create({
             data: {
-              users: {
-                connect: [{ id: 1 }],
-              },
-              jobs: {
-                connect: [{ id: 1 }],
-              },
-            },
-            include: {
-              users: true, // Include all posts in the returned object
-              posts: true
+                user: {
+                    connect: { email: body.email}
+                },
+                job: {
+                    connect: { society: body.society}
+                }
             },
           })
-          if(!application){
+
+        if (!application) {
             throw createError({
-              statusCode :404, 
-              statusMessage : 'Application not created'});
-            
-          }
-    }
-    
+              statusCode: 404,
+              statusMessage: 'Application not created',
+            });
+        }else{
+            return application 
+        }
+        
+        }
 });

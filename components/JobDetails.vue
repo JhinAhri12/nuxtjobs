@@ -19,13 +19,18 @@
     
 </template>
 <script setup>
-    const user = useSupabaseUser();
+
     const { job } = defineProps(['job'])
+    const user = useSupabaseUser();
+
+    const name = computed(
+        () => user.value?.email
+    );
 
     async function applyJob(){
         await $fetch(`/api/job/manageApplication`,{
             method: 'POST',
-            body: { event: 'APPLICATION_JOB',}
+            body: { event: 'APPLICATION_JOB','email': user.value?.email, 'society': job.society}
         })
     }
 </script>
