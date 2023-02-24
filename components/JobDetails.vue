@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-sm rounded overflow-hidden shadow-lg mt-8">
-        <img class="w-full" src="../assets/img/job.jpg" alt="Sunset in the mountains">
+        <img class="w-full" src="../assets/img/job.jpg" alt="job">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{job.society}}</div>
             <p class="text-gray-700 text-base">
@@ -28,7 +28,7 @@
     );
 
     async function applyJob(){
-        await $fetch(`/api/job/manageApplication`,{
+        await $fetch(`/api/application/manageApplication`,{
             method: 'POST',
             body: { event: 'APPLICATION_JOB','email': user.value?.email, 'society': job.society}
         })
