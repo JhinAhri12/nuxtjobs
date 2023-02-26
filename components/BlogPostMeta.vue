@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+//truc
 const props = defineProps({
   author: {
     type: String,
