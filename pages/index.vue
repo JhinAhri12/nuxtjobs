@@ -18,7 +18,6 @@
     middleware: "auth",
     });
     const user = useSupabaseUser(); 
-    // truc 
 </script>
 <style scoped>
 h1{
