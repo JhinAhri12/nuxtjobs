@@ -18,6 +18,7 @@
     middleware: "auth",
     });
     const user = useSupabaseUser();
+    //deploy
 </script>
 <style scoped>
 h1{
