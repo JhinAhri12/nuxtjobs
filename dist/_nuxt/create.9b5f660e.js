@@ -1,0 +1,1 @@
+import{_ as e}from"./FormJob.c5f6aed2.js";import{o as a,c as n}from"./entry.95b3157e.js";const p={__name:"create",setup(r){const t="Create",o="POST";return(_,s)=>{const c=e;return a(),n(c,{title:t,action:o})}}};export{p as default};
