@@ -17,7 +17,8 @@
     definePageMeta({
     middleware: "auth",
     });
-    const user = useSupabaseUser();
+    const user = useSupabaseUser(); 
+    // truc 
 </script>
 <style scoped>
 h1{
